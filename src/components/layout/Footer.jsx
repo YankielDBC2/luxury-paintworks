@@ -47,7 +47,7 @@ export const Footer = ({ navigateTo }) => {
             </h4>
             <ul className="space-y-4 text-slate-400">
               <li className="flex items-center gap-2">
-                <Clock size={16} /> Lun - Sáb: 8am - 6pm
+                <Clock size={16} /> Lun - Vie: 8am - 8pm
               </li>
               <li className="flex items-center gap-2">
                 <MapPin size={16} /> Miami, Florida
