@@ -36,7 +36,7 @@ export const ContactSection = () => {
                   Solicite su Presupuesto Gratis
                 </h3>
                 <p className="text-blue-200 text-lg md:text-xl max-w-2xl mx-auto">
-                  Expertos en remodelación con más de 10 años de experiencia en el sur de Florida
+                  Expertos en remodelación con más de 6 años de experiencia en el sur de Florida
                 </p>
               </div>
 
