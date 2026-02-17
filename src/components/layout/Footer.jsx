@@ -10,9 +10,9 @@ export const Footer = ({ navigateTo }) => {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-6">
-              <img src="/logo.png" alt="Luxury Paintworks Inc" className="h-10" />
+              <img src="/logo.png" alt="Luxury Paintworks Corp" className="h-10" />
               <span className="text-2xl font-bold tracking-tight">
-                Luxury Paintworks Inc
+                Luxury Paintworks Corp
               </span>
             </div>
             <p className="text-slate-400 max-w-md leading-relaxed text-lg">
@@ -67,7 +67,7 @@ export const Footer = ({ navigateTo }) => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-500 text-sm">
           <p>
-            © {new Date().getFullYear()} Luxury Paintworks Inc. Todos los derechos 
+            © {new Date().getFullYear()} Luxury Paintworks Corp. Todos los derechos 
             reservados.
           </p>
           <div className="flex gap-8">

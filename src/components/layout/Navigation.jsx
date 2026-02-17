@@ -19,9 +19,9 @@ export const Navigation = ({ currentPage, navigateTo, scrolled }) => {
       }`}>
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleNavigate('home')}>
-          <img src="/logo.png" alt="Luxury Paintworks Inc" className="h-10" />
+          <img src="/logo.png" alt="Luxury Paintworks Corp" className="h-10" />
           <span className={`text-xl font-bold tracking-tight ${logoColor}`}>
-            Luxury Paintworks Inc
+            Luxury Paintworks Corp
           </span>
         </div>        {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-6">
