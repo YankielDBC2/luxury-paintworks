@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Star } from 'lucide-react';
 
+// Yelp API credentials
+const YELP_API_KEY = '3t8kfz0uXaSqyVBW_PoDTzhKrdSx_vpeIWsoXHrZB3O-YSHVkqcwHxd9D1HbvJw8sl9zp3LLb8KE1zvBOkrVsqMCIxc13cjahC-haMVVZZWYCIkWMeJmBSrwbUGWaXYx';
+const BUSINESS_ID = 'EJdZdVtvDOe1fbt59VES5Q';
+
 export function useYelpReviews() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -9,11 +13,53 @@ export function useYelpReviews() {
   useEffect(() => {
     async function fetchYelpData() {
       try {
-        const response = await fetch('/api/yelp');
-        if (!response.ok) throw new Error('Failed to fetch');
-        const json = await response.json();
-        setData(json);
+        // Fetch business details
+        const businessRes = await fetch(`https://api.yelp.com/v3/businesses/${BUSINESS_ID}`, {
+          headers: {
+            'Authorization': `Bearer ${YELP_API_KEY}`,
+            'Accept': 'application/json'
+          }
+        });
+
+        if (!businessRes.ok) throw new Error('Failed to fetch business data');
+        const business = await businessRes.json();
+
+        // Fetch reviews
+        const reviewsRes = await fetch(`https://api.yelp.com/v3/businesses/${BUSINESS_ID}/reviews?limit=10`, {
+          headers: {
+            'Authorization': `Bearer ${YELP_API_KEY}`,
+            'Accept': 'application/json'
+          }
+        });
+
+        let reviews = [];
+        if (reviewsRes.ok) {
+          const reviewsData = await reviewsRes.json();
+          reviews = reviewsData.reviews || [];
+        }
+
+        setData({
+          name: business.name,
+          rating: business.rating,
+          review_count: business.review_count,
+          url: business.url,
+          image_url: business.image_url,
+          phone: business.display_phone,
+          location: business.location?.display_address?.[0],
+          city: business.location?.city,
+          reviews: reviews.map(r => ({
+            id: r.id,
+            text: r.text,
+            rating: r.rating,
+            time_created: r.time_created,
+            user: {
+              name: r.user?.name,
+              image_url: r.user?.image_url
+            }
+          }))
+        });
       } catch (err) {
+        console.error('Yelp API error:', err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -76,7 +122,7 @@ export function YelpReviews({ data }) {
                     className="w-8 h-8 rounded-full object-cover"
                   />
                 ) : (
-                  <div className="w-8 h-8 rounded-full flex items-center justify bg-blue-400-center">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center bg-blue-400">
                     <span className="text-white text-sm font-bold">
                       {review.user?.name?.[0] || '?'}
                     </span>
