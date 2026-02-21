@@ -1,10 +1,11 @@
 import React from 'react';
 import { ChevronRight, Star, Shield, Clock, Award } from 'lucide-react';
-import { servicesData } from '../../data/servicesData.js';
+import { useServicesData } from '../../hooks/useServicesData.js';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
 
 export const ServicesGrid = ({ navigateTo }) => {
   const { t } = useLanguage();
+  const servicesData = useServicesData();
   
   return (
     <section id="servicios" className="py-16 md:py-24 bg-slate-50">

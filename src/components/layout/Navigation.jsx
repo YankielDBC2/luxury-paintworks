@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronRight, Menu, X, Phone } from 'lucide-react';
-import { servicesData } from '../../data/servicesData.js';
+import { useServicesData } from '../../hooks/useServicesData.js';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
 import { LanguageToggle } from '../../contexts/LanguageContext.jsx';
 import { contactInfo } from '../../data/servicesData.js';
@@ -9,6 +9,7 @@ export const Navigation = ({ currentPage, navigateTo, scrolled }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const { t } = useLanguage();
+  const servicesData = useServicesData();
 
   const handleNavigate = (pageId) => {
     navigateTo(pageId);
@@ -77,7 +78,7 @@ export const Navigation = ({ currentPage, navigateTo, scrolled }) => {
                   onClick={() => handleNavigate('pintura')}
                   className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1"
                 >
-                  Ver todos los servicios <ChevronRight size={14} />
+                  {t('viewDetails')} <ChevronRight size={14} />
                 </button>
               </div>
             </div>

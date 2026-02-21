@@ -3,6 +3,7 @@ import { ChevronRight, CheckCircle2, ChevronDown, ChevronUp, MapPin, Phone, Cloc
 import { BeforeAfterSlider } from '../common/BeforeAfterSlider';
 import { contactInfo } from '../../data/servicesData.js';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
+import { useServicesData } from '../../hooks/useServicesData.js';
 
 function FAQItem({ question, answer }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,7 +70,7 @@ export const ServiceDetail = ({ service, navigateTo }) => {
               {/* Introduction */}
               <div>
                 <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-3 md:mb-4">
-                  {t('whyChooseUs').replace('tu proyecto de', '').trim()} {service.title.toLowerCase()}?
+                  {t('whyChooseUs')} {service.title.toLowerCase()}?
                 </h2>
                 <p className="text-base md:text-lg text-slate-600 leading-relaxed border-l-4 border-blue-600 pl-4 md:pl-6 py-2">
                   {service.intro}

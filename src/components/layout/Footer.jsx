@@ -1,9 +1,12 @@
 import React from 'react';
 import { ShieldCheck, Clock, MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react';
-import { servicesData } from '../../data/servicesData';
+import { useServicesData } from '../../hooks/useServicesData.js';
+import { useLanguage } from '../../contexts/LanguageContext.jsx';
 import { contactInfo } from '../../data/servicesData';
 
 export const Footer = ({ navigateTo }) => {
+  const { t } = useLanguage();
+  const servicesData = useServicesData();
   return (
     <footer className="bg-slate-900 text-white relative overflow-hidden">
       {/* Background pattern */}

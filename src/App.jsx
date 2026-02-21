@@ -8,11 +8,12 @@ import { ServiceDetail } from './components/services/ServiceDetail.jsx';
 import { ContactSection } from './components/contact/ContactSection.jsx';
 import { LanguageProvider, LanguageSelector } from './contexts/LanguageContext.jsx';
 import { useScroll } from './hooks/useScroll.js';
-import { servicesData } from './data/servicesData.js';
+import { useServicesData } from './hooks/useServicesData.js';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState('home');
   const scrolled = useScroll(20);
+  const servicesData = useServicesData();
 
   const navigateTo = (pageId) => {
     setCurrentPage(pageId);

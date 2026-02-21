@@ -51,7 +51,13 @@ const translations = {
     serveArea: 'Servimos en todo el sur de Florida:',
     alsoSearch: 'Buscan también:',
     trustUs: '¿Por qué confiar en nosotros?',
-    licenseAndInsurance: 'Licencia y seguro'
+    licenseAndInsurance: 'Licencia y seguro',
+    whyChooseUs: '¿Por qué elegirnos para',
+    whyChooseService: 'Beneficios de nuestro servicio',
+    whyHireUs: '¿Por qué contratarnos?',
+    needService: '¿Necesita',
+    faqs: 'Preguntas Frecuentes',
+    selectLanguage: 'Seleccione su idioma'
   },
   en: {
     backToHome: 'Back to Home',
@@ -101,7 +107,13 @@ const translations = {
     serveArea: 'We serve all of South Florida:',
     alsoSearch: 'Also search for:',
     trustUs: 'Why trust us?',
-    licenseAndInsurance: 'License and insurance'
+    licenseAndInsurance: 'License and insurance',
+    whyChooseUs: 'Why choose us for',
+    whyChooseService: 'Service Benefits',
+    whyHireUs: 'Why hire us?',
+    needService: 'Need',
+    faqs: 'Frequently Asked Questions',
+    selectLanguage: 'Select your language'
   }
 };
 
@@ -177,7 +189,7 @@ export function LanguageSelector() {
             <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <Globe className="text-white" size={40} />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">Seleccione su idioma</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">{t('selectLanguage')}</h2>
             <p className="text-slate-500 mb-6">Select your language</p>
             <div className="flex gap-3">
               <button onClick={() => handleSelect('es')} className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-4 rounded-xl transition-all hover:shadow-lg transform hover:scale-105 flex flex-col items-center gap-1">
