@@ -24,17 +24,13 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
-      {/* Language Selector Modal */}
       <LanguageSelector />
-
-      {/* Navigation */}
       <Navigation 
         currentPage={currentPage}
         navigateTo={navigateTo}
         scrolled={scrolled}
       />
 
-      {/* Home Page Content */}
       {isHome && (
         <>
           <Hero />
@@ -43,7 +39,6 @@ function AppContent() {
         </>
       )}
 
-      {/* Service Detail Page */}
       {!isHome && currentService && (
         <ServiceDetail 
           service={currentService}
@@ -51,10 +46,7 @@ function AppContent() {
         />
       )}
 
-      {/* Contact Section - Always visible */}
       <ContactSection />
-
-      {/* Footer */}
       <Footer navigateTo={navigateTo} />
     </div>
   );

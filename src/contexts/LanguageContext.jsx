@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe } from 'lucide-react';
 
@@ -10,7 +10,7 @@ const translations = {
     getQuote: 'Cotización Gratis',
     viewDetails: 'Ver detalles',
     heroTitle: 'Transformamos su Hogar y Negocio',
-    heroSubtitle: 'Servicios profesionales de pintura, ventanas de impacto y remodelación en Miami. Calidad garantizada, precios justos.',
+    heroSubtitle: 'Servicios profesionales de pintura, ventanas de impacto y remodelación en Miami.',
     viewServices: 'Ver Servicios',
     freeQuote: 'Cotización Gratis',
     licenseInsurance: 'Licencia & Seguro',
@@ -60,7 +60,7 @@ const translations = {
     getQuote: 'Free Quote',
     viewDetails: 'View Details',
     heroTitle: 'We Transform Your Home & Business',
-    heroSubtitle: 'Professional painting, impact windows and remodeling services in Miami. Guaranteed quality, fair prices.',
+    heroSubtitle: 'Professional painting, impact windows and remodeling services in Miami.',
     viewServices: 'View Services',
     freeQuote: 'Free Quote',
     licenseInsurance: 'License & Insurance',
@@ -140,7 +140,6 @@ export function useLanguage() {
   return context;
 }
 
-// Language Selector Modal
 export function LanguageSelector() {
   const { setLanguage } = useLanguage();
   const [showModal, setShowModal] = useState(false);
@@ -201,13 +200,12 @@ export function LanguageSelector() {
   );
 }
 
-// Small toggle for navbar
-export function LanguageToggle({ className = '' }) {
+export function LanguageToggle() {
   const { language, setLanguage } = useLanguage();
   return (
     <button
       onClick={() => setLanguage(language === 'es' ? 'en' : 'es')}
-      className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium text-sm transition-colors ${className}`}
+      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium text-sm transition-colors"
     >
       <Globe size={16} />
       <span>{language === 'es' ? 'EN' : 'ES'}</span>

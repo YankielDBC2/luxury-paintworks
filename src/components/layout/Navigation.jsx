@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronRight, Menu, X } from 'lucide-react';
-import { servicesData } from '../../data/servicesData';
+import { servicesData } from '../../data/servicesData.js';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
 import { LanguageToggle } from '../../contexts/LanguageContext.jsx';
 
@@ -24,8 +24,8 @@ export const Navigation = ({ currentPage, navigateTo, scrolled }) => {
         {/* Logo */}
         <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleNavigate('home')}>
           <img src="/logo.png" alt="Luxury Paintworks Corp" className="h-8 md:h-10" />
-          <span className={`text-lg md:text-xl font-bold tracking-tight ${logoColor} hidden sm:block`}>
-            Luxury Paintworks
+          <span className={`text-lg md:text-xl font-bold tracking-tight ${logoColor}`}>
+            Luxury Paintworks <span className="hidden md:inline">Corp</span>
           </span>
         </div>
 
@@ -35,7 +35,7 @@ export const Navigation = ({ currentPage, navigateTo, scrolled }) => {
             onClick={() => handleNavigate('home')}
             className={`font-medium hover:text-blue-500 transition-colors ${textColor}`}
           >
-            {isHome ? (t('backToHome').replace('Volver al ', '')) : t('backToHome')}
+            Inicio
           </button>
 
           {/* Services Dropdown */}
@@ -72,7 +72,7 @@ export const Navigation = ({ currentPage, navigateTo, scrolled }) => {
           </a>
         </div>
 
-        {/* Mobile: Menu + Language */}
+        {/* Mobile: Menu */}
         <div className="flex items-center gap-2 lg:hidden">
           <LanguageToggle className="text-xs" />
           <button
@@ -89,7 +89,7 @@ export const Navigation = ({ currentPage, navigateTo, scrolled }) => {
 
       {/* Mobile Dropdown */}
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-2xl border-t animate-in slide-in-from-top duration-300 max-h-[80vh] overflow-y-auto">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-2xl border-t max-h-[80vh] overflow-y-auto">
           <div className="flex flex-col p-4 gap-1">
             <button
               onClick={() => handleNavigate('home')}

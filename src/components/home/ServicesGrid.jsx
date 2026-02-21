@@ -1,37 +1,16 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { ChevronRight, Star, Shield, Clock, Award } from 'lucide-react';
-import { servicesData } from '../../data/servicesData';
+import { servicesData } from '../../data/servicesData.js';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15
-    }
-  }
-};
-
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-};
-
 export const ServicesGrid = ({ navigateTo }) => {
-  const { t, tService, language } = useLanguage();
+  const { t } = useLanguage();
   
   return (
     <section id="servicios" className="py-16 md:py-24 bg-slate-50">
       <div className="container mx-auto px-3 md:px-4">
         {/* Section Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-10 md:mb-16"
-        >
+        <div className="text-center mb-10 md:mb-16">
           <h2 className="text-2xl md:text-4xl font-bold text-blue-900 mb-3 md:mb-4 px-2">
             {t('servicesTitle')}
           </h2>
@@ -39,34 +18,23 @@ export const ServicesGrid = ({ navigateTo }) => {
           <p className="mt-4 md:mt-6 text-slate-600 max-w-2xl mx-auto text-sm md:text-lg px-2">
             {t('servicesSubtitle')}
           </p>
-        </motion.div>
+        </div>
 
         {/* Services Grid */}
-        <motion.div 
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {servicesData.map((service) => {
             const Icon = service.icon;
-            const translatedTitle = tService(service.id, 'title') || service.title;
-            const translatedIntro = tService(service.id, 'intro')?.substring(0, 100) || service.intro?.substring(0, 100);
-            
             return (
-              <motion.div 
+              <div 
                 key={service.id} 
-                variants={item}
                 className="bg-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 group cursor-pointer"
                 onClick={() => navigateTo(service.id)}
-                whileHover={{ y: -8 }}
               >
                 {/* Service Image */}
                 <div className="relative h-44 md:h-56 overflow-hidden">
                   <img 
                     src={service.image} 
-                    alt={translatedTitle}
+                    alt={service.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -76,14 +44,14 @@ export const ServicesGrid = ({ navigateTo }) => {
                     </div>
                   </div>
                   <div className="absolute bottom-3 md:bottom-4 left-4 md:left-6 right-4 md:right-6">
-                    <h3 className="text-lg md:text-xl font-bold text-white">{translatedTitle}</h3>
+                    <h3 className="text-lg md:text-xl font-bold text-white">{service.title}</h3>
                   </div>
                 </div>
                 
                 {/* Service Content */}
                 <div className="p-4 md:p-6">
                   <p className="text-slate-600 mb-4 line-clamp-2 leading-relaxed text-sm">
-                    {translatedIntro}...
+                    {service.intro?.substring(0, 100)}...
                   </p>
                   
                   {/* Benefits preview */}
@@ -100,32 +68,23 @@ export const ServicesGrid = ({ navigateTo }) => {
                   </div>
                   
                   <div className="flex items-center justify-between pt-3 md:pt-4 border-t border-slate-100">
-                    <span className="text-blue-600 font-bold flex items-center gap-1 group-hover:gap-2 transition-all text-sm">
+                    <span className="text-blue-600 font-bold flex items-center gap-1 text-sm">
                       {t('viewDetails')} <ChevronRight size={14} md:size={16} />
                     </span>
                     <div className="flex gap-0.5">
                       {[1, 2, 3, 4, 5].map(i => (
-                        <Star 
-                          key={i} 
-                          size={10} 
-                          className="fill-yellow-400 text-yellow-400" 
-                        />
+                        <Star key={i} size={10} className="fill-yellow-400 text-yellow-400" />
                       ))}
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
 
         {/* CTA */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mt-10 md:mt-16"
-        >
+        <div className="text-center mt-10 md:mt-16">
           <a 
             href="#contacto"
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 md:py-4 px-6 md:px-8 rounded-full transition-all shadow-lg hover:shadow-xl text-sm md:text-base"
@@ -133,7 +92,7 @@ export const ServicesGrid = ({ navigateTo }) => {
             {t('requestQuote')}
             <ChevronRight size={18} md:size={20} />
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
