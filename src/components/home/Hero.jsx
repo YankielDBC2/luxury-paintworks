@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../common/Button';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
@@ -28,29 +28,44 @@ export const Hero = () => {
   const [displayText, setDisplayText] = useState('');
   const [currentPhrase, setCurrentPhrase] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const timerRef = useRef(null);
   
   const phrases = typewriterPhrases[language] || typewriterPhrases.es;
   const phrase = phrases[currentPhrase];
   
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    // Reset text when language changes
+    setDisplayText('');
+    setCurrentPhrase(0);
+    setIsDeleting(false);
+  }, [language]);
+  
+  useEffect(() => {
+    if (!phrase) return;
+    
+    const typeSpeed = isDeleting ? 30 : 80;
+    const deleteDelay = !isDeleting && displayText === phrase.text.length ? 2000 : typeSpeed;
+    
+    timerRef.current = setTimeout(() => {
       if (!isDeleting) {
         if (displayText.length < phrase.text.length) {
           setDisplayText(phrase.text.slice(0, displayText.length + 1));
         } else {
-          setTimeout(() => setIsDeleting(true), 2000);
+          setIsDeleting(true);
         }
       } else {
         if (displayText.length > 0) {
           setDisplayText(displayText.slice(0, -1));
         } else {
           setIsDeleting(false);
-          setCurrentPhrase((prev) => (prev + 1) % phrases.length);
+          setCurrentPhrase(prev => (prev + 1) % phrases.length);
         }
       }
-    }, isDeleting ? 50 : 100);
+    }, deleteDelay);
     
-    return () => clearTimeout(timeout);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, [displayText, isDeleting, phrase, phrases.length]);
   
   const stats = [
