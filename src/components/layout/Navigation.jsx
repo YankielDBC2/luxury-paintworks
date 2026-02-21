@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronRight, Menu, X, Phone } from 'lucide-react';
 import { useServicesData } from '../../hooks/useServicesData.js';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
@@ -10,6 +10,18 @@ export const Navigation = ({ currentPage, navigateTo, scrolled }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const { t } = useLanguage();
   const servicesData = useServicesData();
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   const handleNavigate = (pageId) => {
     navigateTo(pageId);

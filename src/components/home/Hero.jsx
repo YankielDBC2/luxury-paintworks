@@ -1,11 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../common/Button';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
 import { ShieldCheck, Clock, Star, Users, ArrowRight, MessageCircle } from 'lucide-react';
 
+const typewriterPhrases = {
+  es: [
+    { prefix: 'Transformamos su ', text: 'Hogar', suffix: ' y Negocio' },
+    { prefix: 'Pintura ', text: 'Interior', suffix: ' y Exterior' },
+    { prefix: 'Ventanas de ', text: 'Impacto', suffix: ' para Hurricanes' },
+    { prefix: 'Paneles ', text: 'Decorativos', suffix: ' Modernos' },
+    { prefix: 'Lavado a ', text: 'Presión', suffix: ' Profesional' },
+    { prefix: 'Piso ', text: 'Laminado', suffix: ' de Primera' }
+  ],
+  en: [
+    { prefix: 'We Transform Your ', text: 'Home', suffix: ' & Business' },
+    { prefix: 'Interior & ', text: 'Exterior', suffix: ' Painting' },
+    { prefix: 'Impact ', text: 'Windows', suffix: ' for Hurricanes' },
+    { prefix: 'Decorative ', text: 'Wall Panels', suffix: ' Modern' },
+    { prefix: 'Professional ', text: 'Pressure Washing', suffix: '' },
+    { prefix: 'Quality ', text: 'Laminate Flooring', suffix: '' }
+  ]
+};
+
 export const Hero = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [displayText, setDisplayText] = useState('');
+  const [currentPhrase, setCurrentPhrase] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  
+  const phrases = typewriterPhrases[language] || typewriterPhrases.es;
+  const phrase = phrases[currentPhrase];
+  
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (displayText.length < phrase.text.length) {
+          setDisplayText(phrase.text.slice(0, displayText.length + 1));
+        } else {
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        if (displayText.length > 0) {
+          setDisplayText(displayText.slice(0, -1));
+        } else {
+          setIsDeleting(false);
+          setCurrentPhrase((prev) => (prev + 1) % phrases.length);
+        }
+      }
+    }, isDeleting ? 50 : 100);
+    
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, phrase, phrases.length]);
   
   const stats = [
     { icon: Clock, value: '10+', label: t('experience') },
@@ -56,14 +102,16 @@ export const Hero = () => {
             <span className="text-blue-300 text-sm font-medium">✦ Miami · Broward · Palm Beach</span>
           </motion.div>
           
-          {/* Title */}
+          {/* Title with Typewriter effect */}
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white min-h-[1.2em]"
           >
-            {t('heroTitle')}
+            {phrase.prefix}
+            <span className="text-blue-400 border-r-2 border-blue-400 animate-pulse">{displayText}</span>
+            {phrase.suffix}
           </motion.h1>
           
           {/* Subtitle */}
