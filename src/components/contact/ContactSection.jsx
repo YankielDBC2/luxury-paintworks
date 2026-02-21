@@ -2,7 +2,7 @@ import React from 'react';
 import { Phone, Mail, MapPin, MessageCircle, Instagram, Facebook, Clock, Star } from 'lucide-react';
 import { contactInfo } from '../../data/servicesData';
 import { useYelpReviews, YelpReviews } from '../../hooks/useYelpReviews.jsx';
-import { useLanguage } from '../../contexts/LanguageContext';
+import { useLanguage } from '../../contexts/LanguageContext.jsx';
 
 export const ContactSection = () => {
   const { t } = useLanguage();

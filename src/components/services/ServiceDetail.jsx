@@ -3,7 +3,7 @@ import { ChevronRight, CheckCircle2, ChevronDown, ChevronUp, MapPin, Phone, Cloc
 import { BeforeAfterSlider } from '../common/BeforeAfterSlider';
 import { contactInfo } from '../../data/servicesData';
 import { motion } from 'framer-motion';
-import { useLanguage } from '../../contexts/LanguageContext';
+import { useLanguage } from '../../contexts/LanguageContext.jsx';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
