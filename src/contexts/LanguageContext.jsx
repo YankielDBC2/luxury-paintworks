@@ -143,59 +143,55 @@ export function useLanguage() {
 export function LanguageSelector() {
   const { setLanguage } = useLanguage();
   const [showModal, setShowModal] = useState(false);
-  const [hasSelected, setHasSelected] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('luxury-paintworks-language');
     if (!saved) {
-      setTimeout(() => setShowModal(true), 1500);
-    } else {
-      setHasSelected(true);
+      setTimeout(() => setShowModal(true), 1000);
     }
   }, []);
 
   const handleSelect = (lang) => {
     setLanguage(lang);
     setShowModal(false);
-    setHasSelected(true);
   };
 
-  if (hasSelected) return null;
+  if (!showModal) return null;
 
   return (
     <AnimatePresence>
-      {showModal && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      >
+        <motion.div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => handleSelect('es')} />
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          initial={{ scale: 0.9, opacity: 0, y: 20 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.9, opacity: 0, y: 20 }}
+          className="relative bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full"
         >
-          <motion.div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => handleSelect('es')} />
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            className="relative bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full"
-          >
-            <div className="text-center">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Globe className="text-blue-600" size={32} />
-              </div>
-              <h2 className="text-2xl font-bold text-slate-900 mb-2">Select your language</h2>
-              <p className="text-slate-600 mb-6">Seleccione su idioma</p>
-              <div className="flex gap-4">
-                <button onClick={() => handleSelect('es')} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-all hover:shadow-lg">
-                  🇪🇸 Español
-                </button>
-                <button onClick={() => handleSelect('en')} className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold py-4 px-6 rounded-xl transition-all hover:shadow-lg">
-                  🇺🇸 English
-                </button>
-              </div>
+          <div className="text-center">
+            <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <Globe className="text-white" size={40} />
             </div>
-          </motion.div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Seleccione su idioma</h2>
+            <p className="text-slate-500 mb-6">Select your language</p>
+            <div className="flex gap-3">
+              <button onClick={() => handleSelect('es')} className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-4 rounded-xl transition-all hover:shadow-lg transform hover:scale-105 flex flex-col items-center gap-1">
+                <span className="text-2xl">🇪🇸</span>
+                <span>Español</span>
+              </button>
+              <button onClick={() => handleSelect('en')} className="flex-1 bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white font-bold py-4 px-4 rounded-xl transition-all hover:shadow-lg transform hover:scale-105 flex flex-col items-center gap-1">
+                <span className="text-2xl">🇺🇸</span>
+                <span>English</span>
+              </button>
+            </div>
+          </div>
         </motion.div>
-      )}
+      </motion.div>
     </AnimatePresence>
   );
 }
@@ -205,10 +201,11 @@ export function LanguageToggle() {
   return (
     <button
       onClick={() => setLanguage(language === 'es' ? 'en' : 'es')}
-      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium text-sm transition-colors"
+      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-all hover:shadow-md border-2 border-white"
+      aria-label="Cambiar idioma"
     >
-      <Globe size={16} />
-      <span>{language === 'es' ? 'EN' : 'ES'}</span>
+      <Globe size={14} />
+      <span className="uppercase tracking-wide">{language === 'es' ? 'ES' : 'EN'}</span>
     </button>
   );
 }
