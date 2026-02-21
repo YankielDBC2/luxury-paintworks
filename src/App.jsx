@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Navigation } from './components/layout/Navigation';
-import { Footer } from './components/layout/Footer';
-import { Hero } from './components/home/Hero';
-import { QuickFeatures } from './components/home/QuickFeatures';
-import { ServicesGrid } from './components/home/ServicesGrid';
-import { ServiceDetail } from './components/services/ServiceDetail';
-import { ContactSection } from './components/contact/ContactSection';
-import { useScroll } from './hooks/useScroll';
-import { servicesData } from './data/servicesData';
+import { Navigation } from './components/layout/Navigation.jsx';
+import { Footer } from './components/layout/Footer.jsx';
+import { Hero } from './components/home/Hero.jsx';
+import { QuickFeatures } from './components/home/QuickFeatures.jsx';
+import { ServicesGrid } from './components/home/ServicesGrid.jsx';
+import { ServiceDetail } from './components/services/ServiceDetail.jsx';
+import { ContactSection } from './components/contact/ContactSection.jsx';
+import { LanguageProvider, LanguageSelector } from './contexts/LanguageContext.jsx';
+import { useScroll } from './hooks/useScroll.js';
+import { servicesData } from './data/servicesData.js';
 
-const App = () => {
+function AppContent() {
   const [currentPage, setCurrentPage] = useState('home');
   const scrolled = useScroll(20);
 
@@ -23,6 +24,9 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      {/* Language Selector Modal */}
+      <LanguageSelector />
+
       {/* Navigation */}
       <Navigation 
         currentPage={currentPage}
@@ -53,6 +57,14 @@ const App = () => {
       {/* Footer */}
       <Footer navigateTo={navigateTo} />
     </div>
+  );
+}
+
+const App = () => {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 };
 
