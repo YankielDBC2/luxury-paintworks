@@ -1,8 +1,11 @@
 import React from 'react';
-import { Phone, Mail, MapPin, MessageCircle, Instagram, Facebook, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, Instagram, Facebook, Clock, Star } from 'lucide-react';
 import { servicesData, contactInfo } from '../../data/servicesData';
+import { useYelpReviews, YelpReviews } from '../../hooks/useYelpReviews.jsx';
 
 export const ContactSection = () => {
+  const { data: yelpData, loading: yelpLoading, error: yelpError } = useYelpReviews();
+
   return (
     <section id="contacto" className="py-12 md:py-20 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
       {/* Background decorations */}
@@ -150,29 +153,30 @@ export const ContactSection = () => {
                 </a>
               </div>
 
-              {/* Social Proof */}
-              <div className="bg-white/5 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/10 mb-4 md:mb-6">
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-                  <div className="flex -space-x-3">
-                    {[1, 2, 3, 4, 5].map(i => (
-                      <img 
-                        key={i} 
-                        className="w-10 h-10 rounded-full border-3 border-blue-900 shadow-lg" 
-                        src={`https://i.pravatar.cc/100?u=${i}`} 
-                        alt={`Cliente ${i}`} 
-                      />
-                    ))}
-                  </div>
-                  <div className="text-center md:text-left">
-                    <p className="text-white font-bold text-base md:text-lg mb-1">
-                      +500 Clientes Satisfechos
-                    </p>
-                    <p className="text-blue-300 text-xs md:text-sm">
-                      Calificación promedio: ⭐⭐⭐⭐⭐ 4.9/5
-                    </p>
+              {/* Yelp Reviews - REPLACES "Clientes Satisfechos" */}
+              {yelpLoading ? (
+                <div className="bg-white/5 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/10 mb-4 md:mb-6">
+                  <div className="flex items-center justify-center gap-2 text-blue-300">
+                    <div className="animate-spin w-5 h-5 border-2 border-blue-300 border-t-transparent rounded-full"></div>
+                    <span>Cargando reviews de Yelp...</span>
                   </div>
                 </div>
-              </div>
+              ) : yelpError ? (
+                <div className="bg-white/5 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/10 mb-4 md:mb-6">
+                  <div className="flex items-center justify-center gap-3">
+                    <img 
+                      src="https://s3-media0.fl.yelpcdn.com/assets/srvz/yelp_design_web/yelp_bge_logo.svg" 
+                      alt="Yelp" 
+                      className="h-6 filter brightness-0 invert"
+                    />
+                    <span className="text-blue-200">Revisa nuestras reseñas en Yelp</span>
+                  </div>
+                </div>
+              ) : yelpData && (
+                <div className="bg-white/5 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-5 border border-white/10 mb-4 md:mb-6">
+                  <YelpReviews data={yelpData} />
+                </div>
+              )}
 
               {/* Hours */}
               <div className="text-center">
