@@ -37,7 +37,9 @@ const translations = {
     chatWhatsapp: 'Chat WhatsApp',
     sendSMS: 'Enviar SMS',
     followUs: 'Síguenos',
-    hours: 'Lun-Sáb: 8am-6pm',
+    hours: 'Lun-Sáb: 8am-8pm',
+    hoursMonFri: 'Lun-Vier: 8am-8pm',
+    hoursSat: 'Sáb: 8am-8pm',
     yearsExperience: 'Años Experiencia',
     projectsCompleted: 'Proyectos',
     satisfaction: 'Satisfacción',
@@ -57,7 +59,12 @@ const translations = {
     whyHireUs: '¿Por qué contratarnos?',
     needService: '¿Necesita',
     faqs: 'Preguntas Frecuentes',
-    selectLanguage: 'Seleccione su idioma'
+    selectLanguage: 'Seleccione su idioma',
+    chatOnWhatsApp: 'Chatear por WhatsApp',
+    sendSMSLabel: 'Enviar SMS',
+    seeAllReviews: 'Ver todas las reseñas en Yelp',
+    noReviews: 'No hay reseñas aún',
+    beFirstReview: '¡Sé el primero en dejarnos una reseña!'
   },
   en: {
     backToHome: 'Back to Home',
@@ -113,7 +120,14 @@ const translations = {
     whyHireUs: 'Why hire us?',
     needService: 'Need',
     faqs: 'Frequently Asked Questions',
-    selectLanguage: 'Select your language'
+    selectLanguage: 'Select your language',
+    hoursMonFri: 'Mon-Fri: 8am-8pm',
+    hoursSat: 'Sat: 8am-8pm',
+    chatOnWhatsApp: 'Chat on WhatsApp',
+    sendSMSLabel: 'Send SMS',
+    seeAllReviews: 'See all reviews on Yelp',
+    noReviews: 'No reviews yet',
+    beFirstReview: 'Be the first to review us!'
   }
 };
 

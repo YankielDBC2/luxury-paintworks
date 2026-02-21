@@ -2,9 +2,11 @@ import React from 'react';
 import { Phone, Mail, MapPin, MessageCircle, Instagram, Facebook, Clock, Star } from 'lucide-react';
 import { contactInfo } from '../../data/servicesData.js';
 import { useYelpReviews, YelpReviews } from '../../hooks/useYelpReviews.jsx';
+import { useLanguage } from '../../contexts/LanguageContext.jsx';
 
 export const ContactSection = () => {
   const { data: yelpData, loading: yelpLoading, error: yelpError } = useYelpReviews();
+  const { t } = useLanguage();
 
   return (
     <section id="contacto" className="py-10 md:py-20 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
@@ -18,10 +20,10 @@ export const ContactSection = () => {
         {/* Section Header */}
         <div className="text-center mb-8 md:mb-12">
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-3 px-2">
-            ¿Listo para transformar su espacio?
+            {t('readyToTransform')}
           </h2>
           <p className="text-base md:text-xl text-slate-600 max-w-2xl mx-auto px-2">
-            Contáctenos hoy y obtenga un presupuesto gratuito sin compromiso
+            {t('contactSubtitle')}
           </p>
         </div>
 
@@ -35,10 +37,10 @@ export const ContactSection = () => {
               {/* Title */}
               <div className="text-center mb-6 md:mb-10">
                 <h3 className="text-xl md:text-3xl font-bold text-white mb-2">
-                  Solicite su Presupuesto Gratis
+                  {t('requestBudget')}
                 </h3>
                 <p className="text-blue-200 text-sm md:text-lg">
-                  Expertos en remodelación con más de 10 años de experiencia en el sur de Florida
+                  {t('contactDesc')}
                 </p>
               </div>
 
@@ -51,7 +53,7 @@ export const ContactSection = () => {
                       <Phone size={20} md:size={24} className="text-white" />
                     </div>
                     <p className="text-xs text-blue-300 font-bold uppercase tracking-wider mb-1">
-                      Llamadas & WhatsApp
+                      {t('callsWhatsapp')}
                     </p>
                     <a href={`tel:${contactInfo.phoneRaw}`} className="text-base md:text-xl font-bold text-white hover:text-blue-300 transition-colors">
                       {contactInfo.phone}
@@ -66,7 +68,7 @@ export const ContactSection = () => {
                       <Mail size={20} md:size={24} className="text-white" />
                     </div>
                     <p className="text-xs text-blue-300 font-bold uppercase tracking-wider mb-1">
-                      Email
+                      {t('email')}
                     </p>
                     <a href={`mailto:${contactInfo.email}`} className="text-xs md:text-lg font-bold text-white hover:text-blue-300 transition-colors break-all leading-tight">
                       {contactInfo.email}
@@ -81,7 +83,7 @@ export const ContactSection = () => {
                       <MapPin size={20} md:size={24} className="text-white" />
                     </div>
                     <p className="text-xs text-blue-300 font-bold uppercase tracking-wider mb-1">
-                      Área de Cobertura
+                      {t('coverageArea')}
                     </p>
                     <p className="text-base md:text-xl font-bold text-white">
                       {contactInfo.coverage}
@@ -99,7 +101,7 @@ export const ContactSection = () => {
                   className="flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 md:py-4 px-4 rounded-xl md:rounded-2xl transition-all shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95 text-sm md:text-base"
                 >
                   <MessageCircle size={18} md:size={20} className="md:w-6 md:h-6" />
-                  <span>Chatear por WhatsApp</span>
+                  <span>{t('chatOnWhatsApp')}</span>
                 </a>
 
                 <a
@@ -107,7 +109,7 @@ export const ContactSection = () => {
                   className="flex items-center justify-center gap-2 md:gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-bold py-3 md:py-4 px-4 rounded-xl md:rounded-2xl transition-all border-2 border-white/30 hover:border-white/50 shadow-xl transform hover:scale-105 active:scale-95 text-sm md:text-base"
                 >
                   <MessageCircle size={18} md:size={20} className="md:w-6 md:h-6" />
-                  <span>Enviar SMS</span>
+                  <span>{t('sendSMSLabel')}</span>
                 </a>
               </div>
 
@@ -164,7 +166,7 @@ export const ContactSection = () => {
                 <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-md px-4 md:px-6 py-2 md:py-3 rounded-full border border-white/10">
                   <Clock size={16} md:size={18} className="text-blue-400" />
                   <span className="text-white font-semibold text-xs md:text-sm">
-                    Lunes a Sábado: 8:00 AM - 6:00 PM
+                    {t('hoursMonFri')} · {t('hoursSat')}
                   </span>
                 </div>
               </div>

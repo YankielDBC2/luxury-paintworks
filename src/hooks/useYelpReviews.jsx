@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Star } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 // Yelp API credentials
 const YELP_API_KEY = '3t8kfz0uXaSqyVBW_PoDTzhKrdSx_vpeIWsoXHrZB3O-YSHVkqcwHxd9D1HbvJw8sl9zp3LLb8KE1zvBOkrVsqMCIxc13cjahC-haMVVZZWYCIkWMeJmBSrwbUGWaXYx';
@@ -73,6 +74,8 @@ export function useYelpReviews() {
 }
 
 export function YelpReviews({ data }) {
+  const { t } = useLanguage();
+  
   if (!data) return null;
 
   const renderStars = (rating) => {
@@ -146,7 +149,8 @@ export function YelpReviews({ data }) {
         </div>
       ) : (
         <div className="text-center text-blue-200 py-4">
-          <p>No reviews yet. Be the first to review us on Yelp!</p>
+          <p>{t('noReviews')}</p>
+          <p className="text-sm mt-1">{t('beFirstReview')}</p>
         </div>
       )}
 
@@ -157,7 +161,7 @@ export function YelpReviews({ data }) {
         rel="noopener noreferrer"
         className="block text-center text-blue-300 hover:text-white text-sm underline mt-2"
       >
-        See all reviews on Yelp
+        {t('seeAllReviews')}
       </a>
     </div>
   );
