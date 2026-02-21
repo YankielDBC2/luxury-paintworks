@@ -9,13 +9,14 @@ export const Button = ({
   className = '',
   ...props 
 }) => {
-  const baseStyles = 'font-bold transition-all rounded-full';
+  const baseStyles = 'font-bold transition-all duration-300 rounded-full inline-flex items-center justify-center gap-2';
   
   const variants = {
-    primary: 'bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:translate-y-[-2px]',
-    secondary: 'bg-white hover:bg-slate-100 text-blue-900 shadow-xl hover:translate-y-[-2px]',
-    outline: 'bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900',
-    cta: 'bg-blue-600 hover:bg-blue-700 text-white transform hover:scale-105 shadow-lg'
+    primary: 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 border border-blue-500/20',
+    secondary: 'bg-white hover:bg-slate-50 text-slate-900 shadow-md hover:shadow-lg hover:-translate-y-0.5 border border-slate-200',
+    outline: 'bg-transparent border-2 border-white/80 text-white hover:bg-white hover:text-blue-900 backdrop-blur-sm',
+    cta: 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-white shadow-lg hover:shadow-xl hover:scale-105',
+    ghost: 'bg-transparent text-slate-600 hover:text-blue-600 hover:bg-blue-50'
   };
 
   const sizes = {

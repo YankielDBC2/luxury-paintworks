@@ -1,14 +1,23 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '../common/Button';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
+import { ShieldCheck, Clock, Star, Users } from 'lucide-react';
 
 export const Hero = () => {
   const { t } = useLanguage();
   
+  const stats = [
+    { icon: Clock, value: '10+', label: t('experience') },
+    { icon: Users, value: '500+', label: t('projectsCompleted') },
+    { icon: Star, value: '5.0', label: 'Yelp' },
+    { icon: ShieldCheck, value: '100%', label: t('satisfaction') }
+  ];
+  
   return (
-    <section className="relative h-[85vh] md:h-[90vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[85vh] md:h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-800/80 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/85 to-slate-900/70 z-10" />
       
       {/* Background Video */}
       <video 
@@ -23,58 +32,100 @@ export const Hero = () => {
       
       {/* Decorative elements */}
       <div className="absolute inset-0 z-10 pointer-events-none">
-        <div className="absolute top-16 md:top-20 left-4 md:left-10 w-24 md:w-32 h-24 md:h-32 bg-blue-500/20 rounded-full blur-2xl md:blur-3xl"></div>
-        <div className="absolute bottom-16 md:bottom-20 right-4 md:right-10 w-32 md:w-48 h-32 md:h-48 bg-blue-400/20 rounded-full blur-2xl md:blur-3xl"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}></div>
       </div>
       
       {/* Content */}
       <div className="container mx-auto px-3 md:px-4 relative z-20">
-        <div className="text-center text-white">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 md:mb-6 leading-tight max-w-4xl mx-auto uppercase tracking-tight">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Badge */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 rounded-full px-4 py-2 mb-6"
+          >
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <span className="text-blue-300 text-sm font-medium">✦ Miami · Broward · Palm Beach</span>
+          </motion.div>
+          
+          {/* Title */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white"
+          >
             {t('heroTitle')}
-          </h1>
+          </motion.h1>
           
-          <p className="text-base md:text-xl mb-8 md:10 text-blue-100 max-w-2xl mx-auto leading-relaxed px-4 md:px-0">
+          {/* Subtitle */}
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-lg md:text-xl lg:text-2xl mb-10 text-blue-100 max-w-2xl mx-auto leading-relaxed"
+          >
             {t('heroSubtitle')}
-          </p>
+          </motion.p>
           
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4 md:px-0">
-            <Button variant="primary" size="lg" href="#servicios">
+          {/* CTA Buttons */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+          >
+            <Button variant="cta" size="lg" href="#contacto">
+              <span>💬</span> {t('freeQuote')}
+            </Button>
+            <Button variant="secondary" size="lg" href="#servicios">
               {t('viewServices')}
             </Button>
-            <Button variant="secondary" size="lg" href="#contacto">
-              {t('freeQuote')}
-            </Button>
-          </div>
+          </motion.div>
 
           {/* Trust indicators */}
-          <div className="mt-12 md:16 flex flex-wrap justify-center gap-6 md:gap-8">
-            <div className="text-center">
-              <p className="text-2xl md:text-3xl font-bold text-blue-400">10+</p>
-              <p className="text-xs md:text-sm text-blue-200">{t('experience')}</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl md:text-3xl font-bold text-blue-400">500+</p>
-              <p className="text-xs md:text-sm text-blue-200">{t('projectsCompleted')}</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl md:text-3xl font-bold text-blue-400">5.0</p>
-              <p className="text-xs md:text-sm text-blue-200">⭐ Yelp</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl md:text-3xl font-bold text-blue-400">100%</p>
-              <p className="text-xs md:text-sm text-blue-200">{t('satisfaction')}</p>
-            </div>
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="flex flex-wrap justify-center gap-6 md:gap-8"
+          >
+            {stats.map((stat, idx) => (
+              <div key={idx} className="text-center group">
+                <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 group-hover:bg-blue-500/20 transition-all">
+                  <stat.icon className="text-blue-400" size={24} />
+                </div>
+                <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
+                <p className="text-xs md:text-sm text-blue-200">{stat.label}</p>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-20">
-        <div className="w-5 md:w-6 h-8 md:h-10 border-2 border-white/50 rounded-full flex justify-center pt-1.5 md:pt-2">
-          <div className="w-1 h-1.5 md:h-2 bg-white/70 rounded-full"></div>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+      >
+        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
+          <motion.div 
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-1.5 h-3 bg-white/70 rounded-full"
+          ></motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
