@@ -5,10 +5,7 @@
   "installCommand": "npm install",
   "framework": "vite",
   "functions": {
-    "api/yelp.js": {
-      "runtime": "@vercel/node@3",
-      "maxDuration": 10
-    }
+    "api/yelp.js": {}
   },
   "headers": [
     {
