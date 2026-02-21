@@ -43,8 +43,8 @@ export const Hero = () => {
   useEffect(() => {
     if (!phrase) return;
     
-    const typeSpeed = isDeleting ? 30 : 80;
-    const deleteDelay = !isDeleting && displayText === phrase.text.length ? 2000 : typeSpeed;
+    const typeSpeed = isDeleting ? 50 : 120;
+    const deleteDelay = !isDeleting && displayText === phrase.text.length ? 3000 : typeSpeed;
     
     timerRef.current = setTimeout(() => {
       if (!isDeleting) {
