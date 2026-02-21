@@ -13,6 +13,8 @@ export const Navigation = ({ currentPage, navigateTo, scrolled }) => {
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+    
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {

@@ -12,6 +12,8 @@ export function useYelpReviews() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let cancelled = false;
+    
     async function fetchYelpData() {
       try {
         // Fetch business details
@@ -39,6 +41,8 @@ export function useYelpReviews() {
           reviews = reviewsData.reviews || [];
         }
 
+        if (cancelled) return;
+        
         setData({
           name: business.name,
           rating: business.rating,
@@ -61,13 +65,15 @@ export function useYelpReviews() {
         });
       } catch (err) {
         console.error('Yelp API error:', err);
-        setError(err.message);
+        if (!cancelled) setError(err.message);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
 
     fetchYelpData();
+    
+    return () => { cancelled = true; };
   }, []);
 
   return { data, loading, error };

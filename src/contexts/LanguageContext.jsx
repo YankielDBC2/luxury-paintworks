@@ -167,13 +167,17 @@ export function useLanguage() {
 }
 
 export function LanguageSelector() {
-  const { setLanguage } = useLanguage();
+  const { setLanguage, t } = useLanguage();
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('luxury-paintworks-language');
-    if (!saved) {
-      setTimeout(() => setShowModal(true), 1000);
+    try {
+      const saved = localStorage.getItem('luxury-paintworks-language');
+      if (!saved) {
+        setTimeout(() => setShowModal(true), 1500);
+      }
+    } catch (e) {
+      console.warn('LanguageSelector init error:', e);
     }
   }, []);
 
