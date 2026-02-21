@@ -1,47 +1,82 @@
 import React from 'react';
-import { ShieldCheck, Clock, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ShieldCheck, Clock, Star, Award, CheckCircle2 } from 'lucide-react';
 
 const features = [
   {
     icon: ShieldCheck,
     title: 'Licencia & Seguro',
-    description: 'Trabajo protegido y garantizado'
+    description: 'Trabajo protegido y garantizado',
+    detail: 'Fully insured & licensed'
   },
   {
     icon: Clock,
     title: 'Rapidez & Limpieza',
-    description: 'Respetamos su tiempo y espacio'
+    description: 'Respetamos su tiempo y espacio',
+    detail: 'On-time, clean service'
   },
   {
     icon: Star,
     title: 'Calidad Premium',
-    description: 'Materiales de primera categoría'
+    description: 'Materiales de primera categoría',
+    detail: 'Top-quality materials'
+  },
+  {
+    icon: Award,
+    title: '10+ Años Experiencia',
+    description: 'Miles de proyectos completados',
+    detail: 'Proven track record'
   }
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
+
 export const QuickFeatures = () => {
   return (
-    <section className="py-12 bg-white border-b border-slate-100">
+    <section className="py-10 bg-white border-b border-slate-100">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto"
+        >
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div 
+              <motion.div 
                 key={index}
-                className="flex flex-col items-center text-center gap-3"
+                variants={item}
+                className="flex flex-col items-center text-center gap-2 p-4 rounded-2xl hover:bg-slate-50 transition-colors"
               >
-                <div className="bg-blue-100 p-4 rounded-full text-blue-600">
-                  <Icon size={32} />
-                </div>
+                <motion.div 
+                  whileHover={{ scale: 1.1 }}
+                  className="bg-blue-100 p-3 rounded-full text-blue-600 mb-2"
+                >
+                  <Icon size={24} />
+                </motion.div>
                 <div>
-                  <h3 className="font-bold text-lg mb-1">{feature.title}</h3>
-                  <p className="text-sm text-slate-500">{feature.description}</p>
+                  <h3 className="font-bold text-slate-800 mb-1 text-sm md:text-base">{feature.title}</h3>
+                  <p className="text-slate-500 text-xs md:text-sm">{feature.description}</p>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
