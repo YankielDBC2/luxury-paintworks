@@ -1,26 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../common/Button';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
 import { ShieldCheck, Clock, Star, Users, ArrowRight, MessageCircle } from 'lucide-react';
 
-const typewriterPhrases = {
-  es: [
-    { prefix: 'Transformamos su ', text: 'Hogar', suffix: ' y Negocio' },
-    { prefix: 'Pintura ', text: 'Interior', suffix: ' y Exterior' },
-    { prefix: 'Ventanas de ', text: 'Impacto', suffix: ' para Hurricanes' },
-    { prefix: 'Paneles ', text: 'Decorativos', suffix: ' Modernos' },
-    { prefix: 'Lavado a ', text: 'Presión', suffix: ' Profesional' },
-    { prefix: 'Piso ', text: 'Laminado', suffix: ' de Primera' }
-  ],
-  en: [
-    { prefix: 'We Transform Your ', text: 'Home', suffix: ' & Business' },
-    { prefix: 'Interior & ', text: 'Exterior', suffix: ' Painting' },
-    { prefix: 'Impact ', text: 'Windows', suffix: ' for Hurricanes' },
-    { prefix: 'Decorative ', text: 'Wall Panels', suffix: ' Modern' },
-    { prefix: 'Professional ', text: 'Pressure Washing', suffix: '' },
-    { prefix: 'Quality ', text: 'Laminate Flooring', suffix: '' }
-  ]
+const staticTitle = {
+  es: 'Transformamos su Hogar y Negocio',
+  en: 'We Transform Your Home & Business'
 };
 
 export const Hero = () => {
@@ -30,43 +16,9 @@ export const Hero = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const timerRef = useRef(null);
   
-  const phrases = typewriterPhrases[language] || typewriterPhrases.es;
-  const phrase = phrases[currentPhrase];
+  const title = staticTitle[language] || staticTitle.es;
   
-  useEffect(() => {
-    // Reset text when language changes
-    setDisplayText('');
-    setCurrentPhrase(0);
-    setIsDeleting(false);
-  }, [language]);
-  
-  useEffect(() => {
-    if (!phrase) return;
-    
-    const typeSpeed = isDeleting ? 80 : 200;
-    const deleteDelay = !isDeleting && displayText === phrase.text.length ? 5000 : typeSpeed;
-    
-    timerRef.current = setTimeout(() => {
-      if (!isDeleting) {
-        if (displayText.length < phrase.text.length) {
-          setDisplayText(phrase.text.slice(0, displayText.length + 1));
-        } else {
-          setIsDeleting(true);
-        }
-      } else {
-        if (displayText.length > 0) {
-          setDisplayText(displayText.slice(0, -1));
-        } else {
-          setIsDeleting(false);
-          setCurrentPhrase(prev => (prev + 1) % phrases.length);
-        }
-      }
-    }, deleteDelay);
-    
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [displayText, isDeleting, phrase, phrases.length]);
+
   
   const stats = [
     { icon: Clock, value: '10+', label: t('experience') },
@@ -122,11 +74,9 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white min-h-[1.2em]"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white"
           >
-            {phrase.prefix}
-            <span className="text-blue-400 border-r-2 border-blue-400 animate-pulse">{displayText}</span>
-            {phrase.suffix}
+            {title}
           </motion.h1>
           
           {/* Subtitle */}
